@@ -10,7 +10,7 @@ app.get('/', function (req, res) {
 
 app.get('/:year', (req, res) => {
   const year = parseInt(req.params.year);
-  if ((year % 4 === 0 && year & (100 !== 0)) || year % 400 === 0) {
+  if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
     res.send('Is leap year');
   } else {
     res.send('Is not leap-year');
