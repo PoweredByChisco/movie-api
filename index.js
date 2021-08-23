@@ -1,14 +1,9 @@
 const express = require('express');
 const app = express();
-const { config } = require('./config/index')
+const { config } = require('./config/index');
+const moviesApi = require('./routes/movies');
 
-app.get('/', function (req, res) {
-  res.send('Hello world');
-}); /* Recibimos la ruta del home, y despues recibe una funcion similar a  */
-
-app.get('/json', function (req, res) {
-  res.send({ hello: 'world' });
-}); /* Creamos otra ruta para probar */
+moviesApi(app);
 
 app.listen(config.port, function () {
   console.log(`Listening http://localhost:${config.port} `);
