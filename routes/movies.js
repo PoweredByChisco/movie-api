@@ -26,7 +26,7 @@ function moviesApi(app) {
 
       res.status(200).json({
         data: movies,
-        message: 'movie retrive',
+        message: 'movie retrived',
       });
     } catch (error) {
       next(error);
