@@ -85,6 +85,22 @@ function moviesApi(app) {
       next(error);
     }
   });
+
+  router.patch('/:movieId', async function (req, res, next) {
+    const { movieId } = req.params;
+    const { body: movie } = req;
+
+    try {
+      const patchMovieId = await moviesService.patchMovie({ movieId, movie });
+
+      res.status(200).json({
+        data: patchMovieId,
+        message: 'movie patched',
+      });
+    } catch (error) {
+      next(error);
+    }
+  }); /* Este metodo parchea solo el atributo id de una pelicula */
 }
 
 module.exports = moviesApi;
