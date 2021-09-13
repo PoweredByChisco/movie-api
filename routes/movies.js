@@ -86,7 +86,7 @@ function moviesApi(app) {
     }
   });
 
-  router.patch('/:movieId', async function (req, res, next) {
+ /*  router.patch('/:movieId', async function (req, res, next) {
     const { movieId } = req.params;
     const { body: movie } = req;
 
@@ -100,7 +100,7 @@ function moviesApi(app) {
     } catch (error) {
       next(error);
     }
-  }); /* Este metodo parchea solo el atributo id de una pelicula */
+  }); */ /* Este metodo parchea solo el atributo id de una pelicula */
 }
 
 module.exports = moviesApi;
