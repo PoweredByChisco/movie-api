@@ -12,6 +12,7 @@ function moviesApi(app) {
 
     try {
       const movies = await moviesService.getMovies({ tags });
+      throw new Error('Error getting movies');
 
       res.status(200).json({
         data: movies,
@@ -39,7 +40,7 @@ function moviesApi(app) {
 
   router.post('/', async function (req, res, next) {
     const { body: movie } = req;
-    console.log(req)
+    console.log(req);
     try {
       const createMovieId = await moviesService.createMovie({ movie });
 
@@ -84,9 +85,9 @@ function moviesApi(app) {
     } catch (error) {
       next(error);
     }
-  });
+  }); /* Este metodo parchea solo el atributo id de una pelicula */
 
- /*  router.patch('/:movieId', async function (req, res, next) {
+  /*  router.patch('/:movieId', async function (req, res, next) {
     const { movieId } = req.params;
     const { body: movie } = req;
 
@@ -100,7 +101,7 @@ function moviesApi(app) {
     } catch (error) {
       next(error);
     }
-  }); */ /* Este metodo parchea solo el atributo id de una pelicula */
+  }); */
 }
 
 module.exports = moviesApi;

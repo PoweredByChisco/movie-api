@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "DEBUG=app:* nodemon index",
-    "start": "SET NODE_ENV=production & node index",
+    "start": "NODE_ENV=production node index",
     "prepare": "husky install"
   },
   "keywords": [],
