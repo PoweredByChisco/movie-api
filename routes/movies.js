@@ -1,5 +1,12 @@
 const express = require('express');
 const MoviesService = require('../services/movies');
+const {
+  movieIdSchema,
+  createMovieSchema,
+  updateMovieSchema,
+} = require('../utils/schemas/movies');
+
+const validationHandler = require('../utils/middleware/validationHandler');
 
 function moviesApi(app) {
   const router = express.Router();
@@ -22,69 +29,89 @@ function moviesApi(app) {
     }
   }); /* Cuando se le haga un get a la ruta home, la ruta home la definimos con app.user */
 
-  router.get('/:movieId', async function (req, res, next) {
-    const { movieId } = req.params;
+  router.get(
+    '/:movieId',
+    validationHandler({ movieId: movieIdSchema }, 'params'),
+    async function (req, res, next) {
+      const { movieId } = req.params;
 
-    try {
-      const movies = await moviesService.getMovie({ movieId });
+      try {
+        const movies = await moviesService.getMovie({ movieId });
 
-      res.status(200).json({
-        data: movies,
-        message: 'movie retrived',
-      });
-    } catch (error) {
-      next(error);
+        res.status(200).json({
+          data: movies,
+          message: 'movie retrived',
+        });
+      } catch (error) {
+        next(error);
+      }
     }
-  });
+  );
 
-  router.post('/', async function (req, res, next) {
-    const { body: movie } = req;
-    console.log(req);
-    try {
-      const createMovieId = await moviesService.createMovie({ movie });
+  router.post(
+    '/',
+    validationHandler(createMovieSchema),
+    async function (req, res, next) {
+      const { body: movie } = req;
+      console.log(req);
+      try {
+        const createMovieId = await moviesService.createMovie({ movie });
 
-      res.status(201).json({
-        data: createMovieId,
-        message: 'movie created',
-      });
-    } catch (error) {
-      next(error);
+        res.status(201).json({
+          data: createMovieId,
+          message: 'movie created',
+        });
+      } catch (error) {
+        next(error);
+      }
     }
-  });
+  );
 
-  router.put('/:movieId', async function (req, res, next) {
-    const { movieId } = req.params;
-    const { body: movie } = req;
+  router.put(
+    '/:movieId',
+    validationHandler(
+      { movieId: movieIdSchema },
+      'params'
+    ) /* you validate both */,
+    validationHandler(updateMovieSchema),
+    async function (req, res, next) {
+      const { movieId } = req.params;
+      const { body: movie } = req;
 
-    try {
-      const updatedMovieId = await moviesService.updateMovie({
-        movieId,
-        movie,
-      });
+      try {
+        const updatedMovieId = await moviesService.updateMovie({
+          movieId,
+          movie,
+        });
 
-      res.status(200).json({
-        data: updatedMovieId,
-        message: 'movie updated',
-      });
-    } catch (error) {
-      next(error);
+        res.status(200).json({
+          data: updatedMovieId,
+          message: 'movie updated',
+        });
+      } catch (error) {
+        next(error);
+      }
     }
-  });
+  );
 
-  router.delete('/:movieId', async function (req, res, next) {
-    const { movieId } = req.params;
+  router.delete(
+    '/:movieId',
+    validationHandler({ movieId: movieIdSchema }, 'params'),
+    async function (req, res, next) {
+      const { movieId } = req.params;
 
-    try {
-      const deletedMovieId = await moviesService.deleteMovie({ movieId });
+      try {
+        const deletedMovieId = await moviesService.deleteMovie({ movieId });
 
-      res.status(200).json({
-        data: deletedMovieId,
-        message: 'movie deleted',
-      });
-    } catch (error) {
-      next(error);
+        res.status(200).json({
+          data: deletedMovieId,
+          message: 'movie deleted',
+        });
+      } catch (error) {
+        next(error);
+      }
     }
-  }); /* Este metodo parchea solo el atributo id de una pelicula */
+  ); /* Este metodo parchea solo el atributo id de una pelicula */
 
   /*  router.patch('/:movieId', async function (req, res, next) {
     const { movieId } = req.params;
