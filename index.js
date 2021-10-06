@@ -15,6 +15,7 @@ app.use(express.json());
 // routes
 moviesApi(app);
 
+
 // catch 404
 app.use(notFoundHandler);
 
