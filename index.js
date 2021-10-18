@@ -8,10 +8,17 @@ const {
   wrapErrors,
 } = require('./utils/middleware/errorHandlers.js');
 const notFoundHandler = require('./utils/middleware/notFoundHandler');
+const cors = require('cors')
 
 /* Debbugin with express */
 const debug = require('debug')('app:app')
 debug('Hello Debug')
+
+/* only a cors example */
+app.use(cors())
+app.get("/products/", function(req, res, next) {
+  res.json({ msg: "This is CORS-enabled for all origins!" });
+});
 
 //body parser
 app.use(express.json());
