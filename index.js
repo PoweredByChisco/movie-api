@@ -9,6 +9,10 @@ const {
 } = require('./utils/middleware/errorHandlers.js');
 const notFoundHandler = require('./utils/middleware/notFoundHandler');
 
+/* Debbugin with express */
+const debug = require('debug')('app:app')
+debug('Hello Debug')
+
 //body parser
 app.use(express.json());
 
