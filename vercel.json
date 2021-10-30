@@ -1,0 +1,10 @@
+{
+  "builds": [{"src": "index.js", "use": "@vercel/node"}],
+  "routes": [{"src": "/(.*)", "dest": "/index.js"}],
+  "env": {
+    "DB_USER": "@movie-api-db-user",
+    "DB_PASSWORD": "@movie-api-db-pass",
+    "DB_HOST": "@move-api-db-host",
+    "DB_NAME": "@movie-api-db-name"
+  }
+}
